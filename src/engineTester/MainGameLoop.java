@@ -36,27 +36,33 @@ public class MainGameLoop {
         Loader loader = new Loader();
 
         ModelData cubeData = OBJFileLoader.loadOBJ("cube");
+        ModelData tetraData = OBJFileLoader.loadOBJ("tetra");
         RawModel rawCube = loader.loadToVAO(cubeData.getVertices(), cubeData.getTextureCoords(), cubeData.getNormals(), cubeData.getIndices());
+        RawModel rawTetra = loader.loadToVAO(tetraData.getVertices(), tetraData.getTextureCoords(), tetraData.getNormals(), tetraData.getIndices());
         TexturedModel ironModel = new TexturedModel(rawCube, new ModelTexture(loader.loadTexture("iron")));
+        TexturedModel steelModel = new TexturedModel(rawTetra, new ModelTexture(loader.loadTexture("steel")));
         ModelTexture ironTexture = ironModel.getTexture();
+        ModelTexture steelTexture = steelModel.getTexture();
         ironTexture.setShineDamper(12);
+        steelTexture.setShineDamper(20);
         ironTexture.setReflectivity(2.0f);
+        steelTexture.setReflectivity(5.0f);
 
-        //Entity entity = new Entity(staticModel, new Vector3f(0,-5,-25),0,0,0,1);
+        Entity entity = new Entity(steelModel, new Vector3f(0, 10 ,-25),0,0,0,1);
         Light light = new Light(new Vector3f(0, 0, 50), new Vector3f(1, 1, 1));
-
+        
         Player player = new Player(ironModel, new Vector3f(0, 0, -50), 0, 0, 0, 1);
         Camera camera = new Camera(player);
         
 //        List<Entity> allEnts = new ArrayList<>();
 //
-//        for (int i = 0; i < 800; i++) {
+//       for (int i = 0; i < 800; i++) {
 //            float x = r.nextFloat() * 100 - 50;
 //            float y = r.nextFloat() * 100 - 50;
 //            float z = r.nextFloat() * -300;
 //            allEnts.add(new Iron(new Vector3f(x, y, z), r.nextFloat() * 180f, r.nextFloat() * 180f, 0f, 1f));
 //        }
-//
+
 //        for (int i = 0; i < 500; i++) {
 //            float x = r.nextFloat() * 100 - 50;
 //            float y = r.nextFloat() * 100 - 50;
@@ -78,7 +84,9 @@ public class MainGameLoop {
             camera.move();
             player.move();
             player.gravity();
+            entity.gravity();
             renderer.processEntity(player);
+            renderer.processEntity(entity);
 //            for (Entity obj : allEnts) {
 //                if (obj instanceof Iron) {
 //                    Iron iron = (Iron) obj;
