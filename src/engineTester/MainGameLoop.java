@@ -37,7 +37,10 @@ public class MainGameLoop {
 
         ModelData cubeData = OBJFileLoader.loadOBJ("cube");
         RawModel rawCube = loader.loadToVAO(cubeData.getVertices(), cubeData.getTextureCoords(), cubeData.getNormals(), cubeData.getIndices());
-        TexturedModel ironModel = new TexturedModel(OBJLoader.loadObjModel("cube", loader), new ModelTexture(loader.loadTexture("iron")));
+        TexturedModel ironModel = new TexturedModel(rawCube, new ModelTexture(loader.loadTexture("iron")));
+        ModelTexture ironTexture = ironModel.getTexture();
+        ironTexture.setShineDamper(12);
+        ironTexture.setReflectivity(2.0f);
 
         //Entity entity = new Entity(staticModel, new Vector3f(0,-5,-25),0,0,0,1);
         Light light = new Light(new Vector3f(0, 0, 50), new Vector3f(1, 1, 1));
