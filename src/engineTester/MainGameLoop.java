@@ -54,34 +54,38 @@ public class MainGameLoop {
         //Entity entity = new Entity(steelModel, new Vector3f(0, 10 ,-25),0,0,0,1);
         Light light = new Light(new Vector3f(0, 0, 50), new Vector3f(1, 1, 1));
         
+        Entity.setIronModel(ironModel);
+        Entity.setSteelModel(steelModel);
+        Entity.setDirtModel(dirtModel);
+        
         Player player = new Player(ironModel, new Vector3f(0, 0, -50), 0, 0, 0, 1);
         Camera camera = new Camera(player);
         
-        //List<Entity> allEnts = new ArrayList<>();
+        List<Entity> allEnts = new ArrayList<>();
         
-        List<Entity> allIron = new ArrayList<>();
-        List<Entity> allSteel = new ArrayList<>();
-        List<Entity> allDirt = new ArrayList<>();
+//        List<Entity> allIron = new ArrayList<>();
+//        List<Entity> allSteel = new ArrayList<>();
+//        List<Entity> allDirt = new ArrayList<>();
 
        for (int i = 0; i < 200; i++) {
             float x = r.nextFloat() * 100 - 50;
             float y = r.nextFloat() * 100 - 50;
             float z = r.nextFloat() * -300;
-            allIron.add(new Entity(ironModel, new Vector3f(x,y,z), r.nextFloat() * 180f, r.nextFloat() * 180f, 0f, 1f));
+            allEnts.add(new Iron(new Vector3f(x,y,z), r.nextFloat() * 180f, r.nextFloat() * 180f, 0f, 1f));
         }
 
         for (int i = 0; i < 100; i++) {
             float x = r.nextFloat() * 100 - 50;
             float y = r.nextFloat() * 100 - 50;
             float z = r.nextFloat() * -300;
-            allSteel.add(new Entity(steelModel, new Vector3f(x, y, z), r.nextFloat() * 180f, r.nextFloat() * 180f, 0f, 1f));
+            allEnts.add(new Steel(new Vector3f(x, y, z), r.nextFloat() * 180f, r.nextFloat() * 180f, 0f, 1f));
         }
 
         for (int i = 0; i < 500; i++) {
             float x = r.nextFloat() * 100 - 50;
             float y = r.nextFloat() * 100 - 50;
             float z = r.nextFloat() * -300;
-            allDirt.add(new Entity(dirtModel, new Vector3f(x, y, z), r.nextFloat() * 180f, r.nextFloat() * 180f, 0f, 1f));
+            allEnts.add(new Dirt(new Vector3f(x, y, z), r.nextFloat() * 180f, r.nextFloat() * 180f, 0f, 1f));
         }
 
         MasterRenderer renderer = new MasterRenderer();
@@ -94,28 +98,21 @@ public class MainGameLoop {
             //entity.gravity();
             renderer.processEntity(player);
             //renderer.processEntity(entity);
-            for (Entity iron : allIron) {
-                renderer.processEntity(iron);
-                iron.gravity();
+            for (Entity obj : allEnts) {
+                if (obj instanceof Iron) {
+                    Iron iron = (Iron) obj;
+                    renderer.processEntity(iron);
+                    iron.gravity();
+                } else if (obj instanceof Steel) {
+                    Steel steel = (Steel) obj;
+                    renderer.processEntity(steel);
+                    steel.gravity();
+                } else if (obj instanceof Dirt) {
+                    Dirt dirt = (Dirt) obj;
+                    renderer.processEntity(dirt);
+                    dirt.gravity();
+                }
             }
-            for (Entity steel : allSteel) {
-                renderer.processEntity(steel);
-                steel.gravity();
-            }
-            for (Entity dirt : allDirt) {
-                renderer.processEntity(dirt);
-                dirt.gravity();
-            }
-//                } else if (obj instanceof Steel) {
-//                    Steel steel = (Steel) obj;
-//                    renderer.processEntity(steel);
-//                    steel.gravity();
-//                } else if (obj instanceof Dirt) {
-//                    Dirt dirt = (Dirt) obj;
-//                    renderer.processEntity(dirt);
-//                    dirt.gravity();
-//                }
-//            }
             renderer.render(light, camera);
             DisplayManager.updateDisplay();
         }
