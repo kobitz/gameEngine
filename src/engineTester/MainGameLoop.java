@@ -36,45 +36,53 @@ public class MainGameLoop {
 
         ModelData cubeData = OBJFileLoader.loadOBJ("cube");
         ModelData tetraData = OBJFileLoader.loadOBJ("tetra");
+        ModelData dodeData = OBJFileLoader.loadOBJ("dode");
         RawModel rawCube = loader.loadToVAO(cubeData.getVertices(), cubeData.getTextureCoords(), cubeData.getNormals(), cubeData.getIndices());
         RawModel rawTetra = loader.loadToVAO(tetraData.getVertices(), tetraData.getTextureCoords(), tetraData.getNormals(), tetraData.getIndices());
+        RawModel rawdode = loader.loadToVAO(dodeData.getVertices(), dodeData.getTextureCoords(), dodeData.getNormals(), dodeData.getIndices());
         TexturedModel ironModel = new TexturedModel(rawCube, new ModelTexture(loader.loadTexture("iron")));
         TexturedModel steelModel = new TexturedModel(rawTetra, new ModelTexture(loader.loadTexture("steel")));
+        TexturedModel dirtModel = new TexturedModel(rawdode, new ModelTexture(loader.loadTexture("dirt")));
         ModelTexture ironTexture = ironModel.getTexture();
         ModelTexture steelTexture = steelModel.getTexture();
+        //ModelTexture dirtTexture = dirtModel.getTexture();
         ironTexture.setShineDamper(12);
         steelTexture.setShineDamper(18);
         ironTexture.setReflectivity(2.0f);
         steelTexture.setReflectivity(3.0f);
 
-        Entity entity = new Entity(steelModel, new Vector3f(0, 10 ,-25),0,0,0,1);
+        //Entity entity = new Entity(steelModel, new Vector3f(0, 10 ,-25),0,0,0,1);
         Light light = new Light(new Vector3f(0, 0, 50), new Vector3f(1, 1, 1));
         
         Player player = new Player(ironModel, new Vector3f(0, 0, -50), 0, 0, 0, 1);
         Camera camera = new Camera(player);
-//        
-//        List<Entity> allEnts = new ArrayList<>();
-//
-//       for (int i = 0; i < 100; i++) {
-//            float x = r.nextFloat() * 100 - 50;
-//            float y = r.nextFloat() * 100 - 50;
-//            float z = r.nextFloat() * -300;
-//            allEnts.add(new Iron(new Vector3f(x, y, z), r.nextFloat() * 180f, r.nextFloat() * 180f, 0f, 1f));
-//        }
-//
-//        for (int i = 0; i < 100; i++) {
-//            float x = r.nextFloat() * 100 - 50;
-//            float y = r.nextFloat() * 100 - 50;
-//            float z = r.nextFloat() * -300;
-//            allEnts.add(new Steel(new Vector3f(x, y, z), r.nextFloat() * 180f, r.nextFloat() * 180f, 0f, 1f));
-//        }
+        
+        //List<Entity> allEnts = new ArrayList<>();
+        
+        List<Entity> allIron = new ArrayList<>();
+        List<Entity> allSteel = new ArrayList<>();
+        List<Entity> allDirt = new ArrayList<>();
 
-//        for (int i = 0; i < 1000; i++) {
-//            float x = r.nextFloat() * 100 - 50;
-//            float y = r.nextFloat() * 100 - 50;
-//            float z = r.nextFloat() * -300;
-//            allEnts.add(new Dirt(new Vector3f(x, y, z), r.nextFloat() * 180f, r.nextFloat() * 180f, 0f, 1f));
-//        }
+       for (int i = 0; i < 200; i++) {
+            float x = r.nextFloat() * 100 - 50;
+            float y = r.nextFloat() * 100 - 50;
+            float z = r.nextFloat() * -300;
+            allIron.add(new Entity(ironModel, new Vector3f(x,y,z), r.nextFloat() * 180f, r.nextFloat() * 180f, 0f, 1f));
+        }
+
+        for (int i = 0; i < 100; i++) {
+            float x = r.nextFloat() * 100 - 50;
+            float y = r.nextFloat() * 100 - 50;
+            float z = r.nextFloat() * -300;
+            allSteel.add(new Entity(steelModel, new Vector3f(x, y, z), r.nextFloat() * 180f, r.nextFloat() * 180f, 0f, 1f));
+        }
+
+        for (int i = 0; i < 500; i++) {
+            float x = r.nextFloat() * 100 - 50;
+            float y = r.nextFloat() * 100 - 50;
+            float z = r.nextFloat() * -300;
+            allDirt.add(new Entity(dirtModel, new Vector3f(x, y, z), r.nextFloat() * 180f, r.nextFloat() * 180f, 0f, 1f));
+        }
 
         MasterRenderer renderer = new MasterRenderer();
 
@@ -83,14 +91,21 @@ public class MainGameLoop {
             camera.move();
             player.move();
             player.gravity();
-            entity.gravity();
+            //entity.gravity();
             renderer.processEntity(player);
-            renderer.processEntity(entity);
-//            for (Entity obj : allEnts) {
-//                if (obj instanceof Iron) {
-//                    Iron iron = (Iron) obj;
-//                    renderer.processEntity(iron);
-//                    iron.gravity();
+            //renderer.processEntity(entity);
+            for (Entity iron : allIron) {
+                renderer.processEntity(iron);
+                iron.gravity();
+            }
+            for (Entity steel : allSteel) {
+                renderer.processEntity(steel);
+                steel.gravity();
+            }
+            for (Entity dirt : allDirt) {
+                renderer.processEntity(dirt);
+                dirt.gravity();
+            }
 //                } else if (obj instanceof Steel) {
 //                    Steel steel = (Steel) obj;
 //                    renderer.processEntity(steel);
