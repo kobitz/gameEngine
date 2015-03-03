@@ -11,6 +11,7 @@ import renderEngine.DisplayManager;
 public class Entity {
 
     public static TexturedModel IRON_MODEL, STEEL_MODEL, DIRT_MODEL;
+    
 
     public static void setIronModel(TexturedModel model) {
         IRON_MODEL = model;
