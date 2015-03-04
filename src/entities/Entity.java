@@ -101,16 +101,15 @@ public class Entity {
             this.currentSpeed = 0;
         }
         
-        if(Keyboard.isKeyDown(Keyboard.KEY_D)){
-            this.currentTurnSpeed = -TURN_SPEED;
+        if(Mouse.isButtonDown(1)){
+            float angleChange = Mouse.getDX() * 5.0f;
+            this.currentTurnSpeed = -angleChange * 10;
         }else if(Keyboard.isKeyDown(Keyboard.KEY_A)){
             this.currentTurnSpeed = TURN_SPEED;
+        }else if(Keyboard.isKeyDown(Keyboard.KEY_D)){
+            this.currentTurnSpeed = -TURN_SPEED;
         }else{
             this.currentTurnSpeed = 0;
-        }
-        if(Mouse.isButtonDown(1)){
-            float angleChange = Mouse.getDX() * 25.0f;
-            this.currentTurnSpeed -= angleChange;
         }
         
         if(Keyboard.isKeyDown(Keyboard.KEY_SPACE)){
