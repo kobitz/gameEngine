@@ -2,6 +2,7 @@ package entities;
 
 import models.TexturedModel;
 import org.lwjgl.input.Keyboard;
+import org.lwjgl.input.Mouse;
 import org.lwjgl.util.vector.Vector3f;
 import renderEngine.DisplayManager;
 
@@ -92,7 +93,7 @@ public class Entity {
     }
     
     private void checkInputs(){
-        if(Keyboard.isKeyDown(Keyboard.KEY_W)){
+        if(Keyboard.isKeyDown(Keyboard.KEY_W) || Mouse.isButtonDown(0) && Mouse.isButtonDown(1)){
             this.currentSpeed = RUN_SPEED;
         }else if(Keyboard.isKeyDown(Keyboard.KEY_S)){
             this.currentSpeed = -RUN_SPEED;
@@ -106,6 +107,10 @@ public class Entity {
             this.currentTurnSpeed = TURN_SPEED;
         }else{
             this.currentTurnSpeed = 0;
+        }
+        if(Mouse.isButtonDown(1)){
+            float angleChange = Mouse.getDX() * 25.0f;
+            this.currentTurnSpeed -= angleChange;
         }
         
         if(Keyboard.isKeyDown(Keyboard.KEY_SPACE)){
