@@ -60,7 +60,7 @@ public class MainGameLoop {
         Entity.setSteelModel(steelModel);
         Entity.setDirtModel(dirtModel);
         
-        Player player = new Player(dirtModel, new Vector3f(0, 0, -50), 0, 0, 0, 1);
+        Player player = new Player(ironModel, new Vector3f(0, 0, -50), 0, 0, 0, 1);
         Camera camera = new Camera(player);
         
         List<Entity> allEnts = new ArrayList<>();
@@ -99,17 +99,17 @@ public class MainGameLoop {
                     Iron iron = (Iron) obj;
                     renderer.processEntity(iron);
                     iron.gravity();
-                    iron.move();
+//                    iron.move();
                 } else if (obj instanceof Steel) {
                     Steel steel = (Steel) obj;
                     renderer.processEntity(steel);
                     steel.gravity();
-                    steel.move();
+//                    steel.move();
                 } else if (obj instanceof Dirt) {
                     Dirt dirt = (Dirt) obj;
                     renderer.processEntity(dirt);
                     dirt.gravity();
-                    dirt.move();
+//                    dirt.move();
                 }
             }
             renderer.render(light, camera);
