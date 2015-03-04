@@ -1,28 +1,21 @@
 package objConverter;
- 
+
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
- 
+
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
- 
+import res.Resources;
+
 public class OBJFileLoader {
-     
-    private static final String RES_LOC = "res/";
- 
+
     public static ModelData loadOBJ(String objFileName) {
-        FileReader isr = null;
-        File objFile = new File(RES_LOC + objFileName + ".obj");
-        try {
-            isr = new FileReader(objFile);
-        } catch (FileNotFoundException e) {
-            System.err.println("File not found in res; don't use any extention");
-        }
+        InputStreamReader isr = null;
+        isr = new InputStreamReader(Resources.getObj(objFileName));
         BufferedReader reader = new BufferedReader(isr);
         String line;
         List<Vertex> vertices = new ArrayList<>();
@@ -39,7 +32,7 @@ public class OBJFileLoader {
                             (float) Float.valueOf(currentLine[3]));
                     Vertex newVertex = new Vertex(vertices.size(), vertex);
                     vertices.add(newVertex);
- 
+
                 } else if (line.startsWith("vt ")) {
                     String[] currentLine = line.split(" ");
                     Vector2f texture = new Vector2f((float) Float.valueOf(currentLine[1]),
@@ -79,7 +72,7 @@ public class OBJFileLoader {
         ModelData data = new ModelData(verticesArray, texturesArray, normalsArray, indicesArray, furthest);
         return data;
     }
- 
+
     private static void processVertex(String[] vertex, List<Vertex> vertices, List<Integer> indices) {
         int index = Integer.parseInt(vertex[0]) - 1;
         Vertex currentVertex = vertices.get(index);
@@ -94,7 +87,7 @@ public class OBJFileLoader {
                     vertices);
         }
     }
- 
+
     private static int[] convertIndicesListToArray(List<Integer> indices) {
         int[] indicesArray = new int[indices.size()];
         for (int i = 0; i < indicesArray.length; i++) {
@@ -102,7 +95,7 @@ public class OBJFileLoader {
         }
         return indicesArray;
     }
- 
+
     private static float convertDataToArrays(List<Vertex> vertices, List<Vector2f> textures,
             List<Vector3f> normals, float[] verticesArray, float[] texturesArray,
             float[] normalsArray) {
@@ -126,7 +119,7 @@ public class OBJFileLoader {
         }
         return furthestPoint;
     }
- 
+
     private static void dealWithAlreadyProcessedVertex(Vertex previousVertex, int newTextureIndex,
             int newNormalIndex, List<Integer> indices, List<Vertex> vertices) {
         if (previousVertex.hasSameTextureAndNormal(newTextureIndex, newNormalIndex)) {
@@ -144,17 +137,17 @@ public class OBJFileLoader {
                 vertices.add(duplicateVertex);
                 indices.add(duplicateVertex.getIndex());
             }
- 
+
         }
     }
-     
-    private static void removeUnusedVertices(List<Vertex> vertices){
-        for(Vertex vertex:vertices){
-            if(!vertex.isSet()){
+
+    private static void removeUnusedVertices(List<Vertex> vertices) {
+        for (Vertex vertex : vertices) {
+            if (!vertex.isSet()) {
                 vertex.setTextureIndex(0);
                 vertex.setNormalIndex(0);
             }
         }
     }
- 
+
 }

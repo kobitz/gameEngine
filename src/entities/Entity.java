@@ -32,7 +32,7 @@ public class Entity {
     private float scale;
     protected float GRAVITY = -50;
     private final float TERRAIN_HEIGHT = 0;
-    private static final float RUN_SPEED = 30;
+    private static final float RUN_SPEED = 50;
     private static final float TURN_SPEED = 160;
     private static final float JUMP_POWER = 40;
     

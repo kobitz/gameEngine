@@ -3,8 +3,17 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/ko/Documents/NetBeansProjects/gameEngine/src/shaders/StaticShader.java</file>
+            <file>file:/C:/Users/ko/Documents/NetBeansProjects/gameEngine/src/renderEngine/Loader.java</file>
             <file>file:/C:/Users/ko/Documents/NetBeansProjects/gameEngine/src/shaders/fragmentShader.glsl</file>
+            <file>file:/C:/Users/ko/Documents/NetBeansProjects/gameEngine/src/entities/Player.java</file>
             <file>file:/C:/Users/ko/Documents/NetBeansProjects/gameEngine/src/shaders/ShaderProgram.java</file>
+            <file>file:/C:/Users/ko/Documents/NetBeansProjects/gameEngine/src/entities/Entity.java</file>
+            <file>file:/C:/Users/ko/Documents/NetBeansProjects/gameEngine/src/renderEngine/EntityRenderer.java</file>
+            <file>file:/C:/Users/ko/Documents/NetBeansProjects/gameEngine/src/objConverter/OBJFileLoader.java</file>
+            <file>file:/C:/Users/ko/Documents/NetBeansProjects/gameEngine/build.xml</file>
+            <file>file:/C:/Users/ko/Documents/NetBeansProjects/gameEngine/src/engineTester/MainGameLoop.java</file>
+            <file>file:/C:/Users/ko/Documents/NetBeansProjects/gameEngine/nbproject/build-impl.xml</file>
         </group>
     </open-files>
 </project-private>

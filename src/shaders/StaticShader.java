@@ -2,6 +2,7 @@ package shaders;
 
 import entities.Camera;
 import entities.Light;
+import java.io.InputStream;
 import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector3f;
 import toolbox.Maths;
@@ -12,8 +13,12 @@ import toolbox.Maths;
  */
 public class StaticShader extends ShaderProgram{
     
-    private static final String VERTEX_FILE = "src/shaders/vertexShader.glsl";
-    private static final String FRAGMENT_FILE = "src/shaders/fragmentShader.glsl";
+    private static final InputStream VERTEX_FILE = getShader("vertexShader.glsl");
+    private static final InputStream FRAGMENT_FILE = getShader("fragmentShader.glsl");
+    
+    private static final InputStream getShader(String name){
+        return StaticShader.class.getResourceAsStream(name);
+    }
     
     private int location_transformationMatrix;
     private int location_projectionMatrix;

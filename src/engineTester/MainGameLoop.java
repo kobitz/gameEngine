@@ -99,14 +99,17 @@ public class MainGameLoop {
                     Iron iron = (Iron) obj;
                     renderer.processEntity(iron);
                     iron.gravity();
+                    iron.move();
                 } else if (obj instanceof Steel) {
                     Steel steel = (Steel) obj;
                     renderer.processEntity(steel);
                     steel.gravity();
+                    steel.move();
                 } else if (obj instanceof Dirt) {
                     Dirt dirt = (Dirt) obj;
                     renderer.processEntity(dirt);
                     dirt.gravity();
+                    dirt.move();
                 }
             }
             renderer.render(light, camera);
