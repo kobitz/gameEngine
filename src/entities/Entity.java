@@ -1,6 +1,7 @@
 package entities;
 
 import models.TexturedModel;
+import org.lwjgl.input.Keyboard;
 import org.lwjgl.util.vector.Vector3f;
 import renderEngine.DisplayManager;
 
@@ -31,6 +32,12 @@ public class Entity {
     private float scale;
     protected float GRAVITY = -50;
     private final float TERRAIN_HEIGHT = 0;
+    private static final float RUN_SPEED = 30;
+    private static final float TURN_SPEED = 160;
+    private static final float JUMP_POWER = 40;
+    
+    private float currentSpeed = 0;
+    private float currentTurnSpeed = 0;
 
     float upForce = 0;
     float doubleUpForce = 0;
@@ -59,6 +66,15 @@ public class Entity {
     public void gravity() {
         gravity(0);
     }
+    
+    public void move(){
+        checkInputs();
+        increaseRotation(0, currentTurnSpeed * DisplayManager.getFramTimeSeconds(), 0);
+        float distance = currentSpeed * DisplayManager.getFramTimeSeconds();
+        float dx = (float) (distance * Math.sin(Math.toRadians(getRotY())));
+        float dz = (float) (distance * Math.cos(Math.toRadians(getRotY())));
+        increasePosition(dx, upForce * DisplayManager.getFramTimeSeconds(), dz);
+    }
 
     public void gravity(int additionalForce) {
         if(additionalForce > 0){
@@ -66,13 +82,38 @@ public class Entity {
         }
         upForce += (GRAVITY + additionalForce) * DisplayManager.getFramTimeSeconds();
         doubleUpForce += (GRAVITY + additionalForce) * DisplayManager.getFramTimeSeconds();
-        increasePosition(0, upForce * DisplayManager.getFramTimeSeconds(), 0);
         increasePosition(0, doubleUpForce * DisplayManager.getFramTimeSeconds(), 0);
         if (getPosition().y < TERRAIN_HEIGHT) {
             upForce = 0;
             doubleUpForce = 0;
             getPosition().y = TERRAIN_HEIGHT;
         }
+    }
+    
+    private void checkInputs(){
+        if(Keyboard.isKeyDown(Keyboard.KEY_W)){
+            this.currentSpeed = RUN_SPEED;
+        }else if(Keyboard.isKeyDown(Keyboard.KEY_S)){
+            this.currentSpeed = -RUN_SPEED;
+        }else{
+            this.currentSpeed = 0;
+        }
+        
+        if(Keyboard.isKeyDown(Keyboard.KEY_D)){
+            this.currentTurnSpeed = -TURN_SPEED;
+        }else if(Keyboard.isKeyDown(Keyboard.KEY_A)){
+            this.currentTurnSpeed = TURN_SPEED;
+        }else{
+            this.currentTurnSpeed = 0;
+        }
+        
+        if(Keyboard.isKeyDown(Keyboard.KEY_SPACE)){
+            jump();
+        }
+    }
+    
+    private void jump(){
+        this.upForce = JUMP_POWER;
     }
 
     public TexturedModel getModel() {

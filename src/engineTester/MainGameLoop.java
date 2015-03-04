@@ -91,8 +91,8 @@ public class MainGameLoop {
         while (!Display.isCloseRequested()) {
 
             camera.move();
+            player.move();
             player.gravity();
-            player.input();
             renderer.processEntity(player);
             for (Entity obj : allEnts) {
                 if (obj instanceof Iron) {
