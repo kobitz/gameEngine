@@ -33,6 +33,7 @@ public class Entity {
     private final float TERRAIN_HEIGHT = 0;
 
     float upForce = 0;
+    float doubleUpForce = 0;
 
     public Entity(TexturedModel model, Vector3f position, float rotX, float rotY, float rotZ, float scale) {
         this.model = model;
@@ -64,9 +65,12 @@ public class Entity {
             additionalForce *= -1;
         }
         upForce += (GRAVITY + additionalForce) * DisplayManager.getFramTimeSeconds();
+        doubleUpForce += (GRAVITY + additionalForce) * DisplayManager.getFramTimeSeconds();
         increasePosition(0, upForce * DisplayManager.getFramTimeSeconds(), 0);
+        increasePosition(0, doubleUpForce * DisplayManager.getFramTimeSeconds(), 0);
         if (getPosition().y < TERRAIN_HEIGHT) {
             upForce = 0;
+            doubleUpForce = 0;
             getPosition().y = TERRAIN_HEIGHT;
         }
     }

@@ -26,8 +26,7 @@ public class Camera {
     
     public void move(){
         calculateZoom();
-        calculatePitch();
-        calculateAngleAroundPlayer();
+        calculateAngleAndPitch();
         float horizontalDistance = calculateHorizontalDistance();
         float verticalDistance = calculateVerticalDistance();
         calculateCameraPosition(horizontalDistance,verticalDistance);
@@ -72,18 +71,18 @@ public class Camera {
         distanceFromPlayer -= zoomLevel;
     }
     
-    private void calculatePitch(){
-        if(Mouse.isButtonDown(1)){
-            float pitchChange = Mouse.getDY() * 0.1f;
-            pitch -= pitchChange;
-        }
-    }
-    
-    private void calculateAngleAroundPlayer(){
+    private void calculateAngleAndPitch(){
         if(Mouse.isButtonDown(0)){
+            float pitchChange = Mouse.getDY() * 0.1f;
             float angleChange = Mouse.getDX() * 0.3f;
+            pitch -= pitchChange;
             angleAroundPlayer -= angleChange;
         }
     }
+//    
+//    private void calculate(){
+//        if(Mouse.isButtonDown(0)){
+//        }
+//    }
     
 }

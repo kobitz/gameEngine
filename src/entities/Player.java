@@ -11,7 +11,7 @@ import renderEngine.DisplayManager;
  */
 public class Player extends Entity {
     
-    private static final float RUN_SPEED = 20;
+    private static final float RUN_SPEED = 30;
     private static final float TURN_SPEED = 160;
     private static final float JUMP_POWER = 30;
     
@@ -22,14 +22,13 @@ public class Player extends Entity {
         super(model, position, rotX, rotY, rotZ, scale);
     }
     
-    public void move(){
+    public void input(){
         checkInputs();
         super.increaseRotation(0, currentTurnSpeed * DisplayManager.getFramTimeSeconds(), 0);
         float distance = currentSpeed * DisplayManager.getFramTimeSeconds();
         float dx = (float) (distance * Math.sin(Math.toRadians(super.getRotY())));
         float dz = (float) (distance * Math.cos(Math.toRadians(super.getRotY())));
-        super.increasePosition(dx, 0, dz);
-        super.increasePosition(0, upForce * DisplayManager.getFramTimeSeconds(), 0);
+        super.increasePosition(dx, upForce * DisplayManager.getFramTimeSeconds(), dz);
     }
     
     private void jump(){
