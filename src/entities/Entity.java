@@ -101,7 +101,7 @@ public class Entity {
             this.currentSpeed = 0;
         }
         
-        if(Mouse.isButtonDown(1)){
+        if(Mouse.isButtonDown(1) || Mouse.isButtonDown(1) && Mouse.isButtonDown(0)){
             float angleChange = Mouse.getDX() * 5.0f;
             this.currentTurnSpeed = -angleChange * 10;
         }else if(Keyboard.isKeyDown(Keyboard.KEY_A)){

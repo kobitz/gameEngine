@@ -90,8 +90,8 @@ public class MainGameLoop {
 
         while (!Display.isCloseRequested()) {
 
-            camera.move();
             player.move();
+            camera.move();
             player.gravity();
             renderer.processEntity(player);
             for (Entity obj : allEnts) {
