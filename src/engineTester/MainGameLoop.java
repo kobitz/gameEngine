@@ -65,24 +65,24 @@ public class MainGameLoop {
         
         List<Entity> allEnts = new ArrayList<>();
 
-       for (int i = 0; i < 200; i++) {
-            float x = r.nextFloat() * 100 - 50;
-            float y = r.nextFloat() * 100 - 50;
-            float z = r.nextFloat() * -300;
+       for (int i = 0; i < 500; i++) {
+            float x = r.nextFloat() * -600;
+            float y = r.nextFloat() * 500;
+            float z = r.nextFloat() * -600;
             allEnts.add(new Iron(new Vector3f(x,y,z), r.nextFloat() * 180f, r.nextFloat() * 180f, 0f, 1f));
         }
 
-        for (int i = 0; i < 100; i++) {
-            float x = r.nextFloat() * 100 - 50;
-            float y = r.nextFloat() * 100 - 50;
-            float z = r.nextFloat() * -300;
+        for (int i = 0; i < 250; i++) {
+            float x = r.nextFloat() * -600;
+            float y = r.nextFloat() * 500;
+            float z = r.nextFloat() * -600;
             allEnts.add(new Steel(new Vector3f(x, y, z), r.nextFloat() * 180f, r.nextFloat() * 180f, 0f, 1f));
         }
 
-        for (int i = 0; i < 500; i++) {
-            float x = r.nextFloat() * 100 - 50;
-            float y = r.nextFloat() * 100 - 50;
-            float z = r.nextFloat() * -300;
+        for (int i = 0; i < 1000; i++) {
+            float x = r.nextFloat() * -600;
+            float y = r.nextFloat() * 500;
+            float z = r.nextFloat() * -600;
             allEnts.add(new Dirt(new Vector3f(x, y, z), r.nextFloat() * 180f, r.nextFloat() * 180f, 0f, 1f));
         }
 
