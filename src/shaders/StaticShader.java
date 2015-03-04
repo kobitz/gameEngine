@@ -12,8 +12,8 @@ import toolbox.Maths;
  */
 public class StaticShader extends ShaderProgram{
     
-    private static final String VERTEX_FILE = "src/shaders/vertexShader.txt";
-    private static final String FRAGMENT_FILE = "src/shaders/fragmentShader.txt";
+    private static final String VERTEX_FILE = "src/shaders/vertexShader.glsl";
+    private static final String FRAGMENT_FILE = "src/shaders/fragmentShader.glsl";
     
     private int location_transformationMatrix;
     private int location_projectionMatrix;
@@ -31,9 +31,9 @@ public class StaticShader extends ShaderProgram{
 
     @Override
     protected void bindAttributes() {
-        super.bindAttributes(0, "position");
-        super.bindAttributes(1, "textureCoords");
-        super.bindAttributes(2, "normal");
+        super.bindAttribute(0, "position");
+        super.bindAttribute(1, "textureCoords");
+        super.bindAttribute(2, "normal");
     }
     
     @Override

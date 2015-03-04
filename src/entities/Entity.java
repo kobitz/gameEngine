@@ -73,7 +73,7 @@ public class Entity {
         float distance = currentSpeed * DisplayManager.getFramTimeSeconds();
         float dx = (float) (distance * Math.sin(Math.toRadians(getRotY())));
         float dz = (float) (distance * Math.cos(Math.toRadians(getRotY())));
-        increasePosition(dx, upForce * DisplayManager.getFramTimeSeconds(), dz);
+        increasePosition(dx, 0, dz);
     }
 
     public void gravity(int additionalForce) {
@@ -82,6 +82,7 @@ public class Entity {
         }
         upForce += (GRAVITY + additionalForce) * DisplayManager.getFramTimeSeconds();
         doubleUpForce += (GRAVITY + additionalForce) * DisplayManager.getFramTimeSeconds();
+        increasePosition(0, upForce * DisplayManager.getFramTimeSeconds(), 0);
         increasePosition(0, doubleUpForce * DisplayManager.getFramTimeSeconds(), 0);
         if (getPosition().y < TERRAIN_HEIGHT) {
             upForce = 0;
