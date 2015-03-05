@@ -61,43 +61,43 @@ public class MainGameLoop {
 
         //Entity entity = new Entity(steelModel, new Vector3f(0, 10 ,-25),0,0,0,1);
         
-        Light light = new Light(new Vector3f(-1500, 1500, -1500), new Vector3f(1, 1, 1));
+        Light light = new Light(new Vector3f(1500, 1500, 1500), new Vector3f(1, 1, 1));
         
         Entity.setIronModel(ironModel);
         Entity.setSteelModel(steelModel);
         Entity.setDirtModel(dirtModel);
         Entity.setCarbonModel(carbonModel);
         
-        Player player = new Player(steelModel, new Vector3f(-1500, 1500, -1500), 0, 0, 0, 1);
+        Player player = new Player(steelModel, new Vector3f(1500, 1500, 1500), 0, 0, 0, 1);
         Camera camera = new Camera(player);
         
         List<Entity> allEnts = new ArrayList<>();
 
         for (int i = 0; i < 10000; i++) {
-            float x = r.nextFloat() * -3000;
+            float x = r.nextFloat() * 3000;
             float y = r.nextFloat() * 3000;
-            float z = r.nextFloat() * -3000;
+            float z = r.nextFloat() * 3000;
             allEnts.add(new Iron(new Vector3f(x,y,z), r.nextFloat() * 180f, r.nextFloat() * 180f, 0f, 1f));
         }
 
         for (int i = 0; i < 5000; i++) {
-            float x = r.nextFloat() * -3000;
+            float x = r.nextFloat() * 3000;
             float y = r.nextFloat() * 3000;
-            float z = r.nextFloat() * -3000;
+            float z = r.nextFloat() * 3000;
             allEnts.add(new Steel(new Vector3f(x, y, z), r.nextFloat() * 180f, r.nextFloat() * 180f, 0f, 1f));
         }
 
         for (int i = 0; i < 30000; i++) {
-            float x = r.nextFloat() * -3000;
+            float x = r.nextFloat() * 3000;
             float y = r.nextFloat() * 3000;
-            float z = r.nextFloat() * -3000;
+            float z = r.nextFloat() * 3000;
             allEnts.add(new Dirt(new Vector3f(x, y, z), r.nextFloat() * 180f, r.nextFloat() * 180f, 0f, 1f));
         }
 
         for (int i = 0; i < 20000; i++) {
-            float x = r.nextFloat() * -3000;
+            float x = r.nextFloat() * 3000;
             float y = r.nextFloat() * 3000;
-            float z = r.nextFloat() * -3000;
+            float z = r.nextFloat() * 3000;
             allEnts.add(new Carbon(new Vector3f(x, y, z), r.nextFloat() * 180f, r.nextFloat() * 180f, 0f, 1f));
         }
 

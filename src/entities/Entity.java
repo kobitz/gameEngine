@@ -1,5 +1,6 @@
 package entities;
 
+import com.bulletphysics.collision.broadphase.AxisSweep3;
 import models.TexturedModel;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
@@ -90,49 +91,43 @@ public class Entity {
     }
 
     public void gravity() {
-        if (getPosition().y < TERRAIN_HEIGHT - 1) {
+        if (getPosition().y < TERRAIN_HEIGHT - 100) {
             yForce += (GRAVITY) * DisplayManager.getFramTimeSeconds();
             doubleYForce += (GRAVITY) * DisplayManager.getFramTimeSeconds();
-//            getPosition().y = TERRAIN_HEIGHT;
-        }else if(getPosition().y > TERRAIN_HEIGHT + 1) {
+        }else if(getPosition().y > TERRAIN_HEIGHT + 100) {
             yForce -= (GRAVITY) * DisplayManager.getFramTimeSeconds();
             doubleYForce -= (GRAVITY) * DisplayManager.getFramTimeSeconds();
-        }else if(getPosition().y < TERRAIN_HEIGHT + 1 && getPosition().y > TERRAIN_HEIGHT - 1 && !Keyboard.isKeyDown(Keyboard.KEY_SPACE)) {
-            yForce *= 0.9;
-            doubleYForce *= 0.9;
+        }else if(getPosition().y < 3000 && getPosition().y > 1 && !Keyboard.isKeyDown(Keyboard.KEY_SPACE)) {
+            yForce *= 0.99;
+            doubleYForce *= 0.99;
 //            getPosition().y = TERRAIN_HEIGHT;
         }
-//        if (getPosition().x < -1500) {
-//            xForce += (GRAVITY) * DisplayManager.getFramTimeSeconds();
-//            doubleXForce += (GRAVITY) * DisplayManager.getFramTimeSeconds();
-//        } else if (getPosition().x > -1500) {
-//            xForce -= (GRAVITY) * DisplayManager.getFramTimeSeconds();
-//            doubleXForce -= (GRAVITY) * DisplayManager.getFramTimeSeconds();
-//        }else if(getPosition().x == -TERRAIN_HEIGHT && !Keyboard.isKeyDown(Keyboard.KEY_SPACE)) {
-            xForce = 0;
-            doubleXForce = 0;
-//            getPosition().x = -TERRAIN_HEIGHT;
-//        }
-//        if (getPosition().z < -1500) {
-//            zForce += (GRAVITY) * DisplayManager.getFramTimeSeconds();
-//            doubleZForce += (GRAVITY) * DisplayManager.getFramTimeSeconds();
-//        } else if (getPosition().z > -1500) {
-//            zForce -= (GRAVITY) * DisplayManager.getFramTimeSeconds();
-//            doubleZForce -= (GRAVITY) * DisplayManager.getFramTimeSeconds();
-//        }else if(getPosition().z == -TERRAIN_HEIGHT && !Keyboard.isKeyDown(Keyboard.KEY_SPACE)) {
-            zForce = 0;
-            doubleZForce = 0;
-//            getPosition().z = -TERRAIN_HEIGHT;
-//        }
-        increasePosition(xForce * DisplayManager.getFramTimeSeconds(), (yForce * 2) * DisplayManager.getFramTimeSeconds(), zForce * DisplayManager.getFramTimeSeconds());
+        if (getPosition().x < 1400) {
+            xForce += (GRAVITY) * DisplayManager.getFramTimeSeconds();
+            doubleXForce += (GRAVITY) * DisplayManager.getFramTimeSeconds();
+        } else if (getPosition().x > 1600) {
+            xForce -= (GRAVITY) * DisplayManager.getFramTimeSeconds();
+            doubleXForce -= (GRAVITY) * DisplayManager.getFramTimeSeconds();
+        }else if(getPosition().x < 3000 && getPosition().x > 1) {
+            xForce *= 0.99;
+            doubleXForce *= 0.99;
+        }
+        if (getPosition().z < 1400) {
+            zForce += (GRAVITY) * DisplayManager.getFramTimeSeconds();
+            doubleZForce += (GRAVITY) * DisplayManager.getFramTimeSeconds();
+        } else if (getPosition().z > 1600) {
+            zForce -= (GRAVITY) * DisplayManager.getFramTimeSeconds();
+            doubleZForce -= (GRAVITY) * DisplayManager.getFramTimeSeconds();
+        }else if(getPosition().z < 3000 && getPosition().z > 1) {
+            zForce *= 0.99;
+            doubleZForce *= 0.99;
+        }
+        increasePosition(xForce * DisplayManager.getFramTimeSeconds(), yForce * DisplayManager.getFramTimeSeconds(), zForce * DisplayManager.getFramTimeSeconds());
         increasePosition(doubleXForce * DisplayManager.getFramTimeSeconds(), doubleYForce * DisplayManager.getFramTimeSeconds(), doubleZForce * DisplayManager.getFramTimeSeconds());
     }
     
     private void collisionDetection(){
-        float box1X = this.position.x + 10;
-        float box1Y = this.position.y + 10;
-        float box2X = this.position.x - 10;
-        float box2Y = this.position.y - 10;
+        
     }
     
     private void collisionMove(){

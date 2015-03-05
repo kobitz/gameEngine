@@ -4,18 +4,25 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/ko/Documents/NetBeansProjects/gameEngine/src/renderEngine/Loader.java</file>
+            <file>file:/C:/Users/ko/Documents/NetBeansProjects/gameEngine/src/models/RawModel.java</file>
             <file>file:/C:/Users/ko/Documents/NetBeansProjects/gameEngine/src/shaders/fragmentShader.glsl</file>
             <file>file:/C:/Users/ko/Documents/NetBeansProjects/gameEngine/src/shaders/ShaderProgram.java</file>
             <file>file:/C:/Users/ko/Documents/NetBeansProjects/gameEngine/src/entities/Entity.java</file>
+            <file>file:/C:/Users/ko/Documents/NetBeansProjects/gameEngine/src/entities/types/Steel.java</file>
             <file>file:/C:/Users/ko/Documents/NetBeansProjects/gameEngine/src/entities/Camera.java</file>
             <file>file:/C:/Users/ko/Documents/NetBeansProjects/gameEngine/src/engineTester/MainGameLoop.java</file>
             <file>file:/C:/Users/ko/Documents/NetBeansProjects/gameEngine/nbproject/build-impl.xml</file>
             <file>file:/C:/Users/ko/Documents/NetBeansProjects/gameEngine/src/objConverter/Vertex.java</file>
             <file>file:/C:/Users/ko/Documents/NetBeansProjects/gameEngine/src/shaders/StaticShader.java</file>
+            <file>file:/C:/Users/ko/Documents/NetBeansProjects/gameEngine/src/entities/types/Carbon.java</file>
             <file>file:/C:/Users/ko/Documents/NetBeansProjects/gameEngine/src/entities/Player.java</file>
             <file>file:/C:/Users/ko/Documents/NetBeansProjects/gameEngine/src/shaders/vertexShader.glsl</file>
+            <file>file:/C:/Users/ko/Documents/NetBeansProjects/gameEngine/src/models/TexturedModel.java</file>
             <file>file:/C:/Users/ko/Documents/NetBeansProjects/gameEngine/src/objConverter/ModelData.java</file>
+            <file>file:/C:/Users/ko/Documents/NetBeansProjects/gameEngine/src/entities/types/Iron.java</file>
             <file>file:/C:/Users/ko/Documents/NetBeansProjects/gameEngine/src/res/Resources.java</file>
+            <file>file:/C:/Users/ko/Documents/NetBeansProjects/gameEngine/src/entities/Light.java</file>
+            <file>file:/C:/Users/ko/Documents/NetBeansProjects/gameEngine/src/entities/types/Dirt.java</file>
             <file>file:/C:/Users/ko/Documents/NetBeansProjects/gameEngine/src/renderEngine/EntityRenderer.java</file>
             <file>file:/C:/Users/ko/Documents/NetBeansProjects/gameEngine/src/objConverter/OBJFileLoader.java</file>
             <file>file:/C:/Users/ko/Documents/NetBeansProjects/gameEngine/build.xml</file>
