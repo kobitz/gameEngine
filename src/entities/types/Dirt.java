@@ -11,7 +11,7 @@ public class Dirt extends Entity {
 
     public Dirt(Vector3f position, float rotX, float rotY, float rotZ, float scale) {
         super(Entity.DIRT_MODEL, position, rotX, rotY, rotZ, scale);
-        super.GRAVITY = -2;
+        super.GRAVITY = 60;
     }
     
 }

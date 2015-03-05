@@ -29,7 +29,7 @@ public class Camera {
         calculatePitch();
         calculateAngleAndPitch();
         float horizontalDistance = calculateHorizontalDistance();
-        float verticalDistance = calculateVerticalDistance();
+        float verticalDistance = calculateVerticalDistance(); 
         calculateCameraPosition(horizontalDistance,verticalDistance);
         this.yaw = 180 - (player.getRotY()+ angleAroundPlayer);
     }

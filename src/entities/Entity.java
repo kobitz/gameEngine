@@ -12,7 +12,7 @@ import renderEngine.DisplayManager;
  */
 public class Entity {
 
-    public static TexturedModel IRON_MODEL, STEEL_MODEL, DIRT_MODEL;
+    public static TexturedModel IRON_MODEL, STEEL_MODEL, DIRT_MODEL, CARBON_MODEL;
     
 
     public static void setIronModel(TexturedModel model) {
@@ -27,21 +27,33 @@ public class Entity {
         DIRT_MODEL = model;
     }
 
+    public static void setCarbonModel(TexturedModel model) {
+        CARBON_MODEL = model;
+    }
+
     private TexturedModel model;
     private Vector3f position;
     private float rotX, rotY, rotZ;
     private float scale;
-    protected float GRAVITY = -50;
-    private final float TERRAIN_HEIGHT = 0;
+    protected float GRAVITY = 100;
+    private final float TERRAIN_HEIGHT = 1500;
     private static final float RUN_SPEED = 50;
+    private static final float STRAFF_SPEED = 30;
     private static final float TURN_SPEED = 160;
     private static final float JUMP_POWER = 40;
     
     private float currentSpeed = 0;
+    private float straffSpeed = 0;
     private float currentTurnSpeed = 0;
+    
+    private float[][] locations;
 
-    float upForce = 0;
-    float doubleUpForce = 0;
+    float yForce = 0;
+    float doubleYForce = 0;
+    float xForce = 0;
+    float doubleXForce = 0;
+    float zForce = 0;
+    float doubleZForce = 0;
 
     public Entity(TexturedModel model, Vector3f position, float rotX, float rotY, float rotZ, float scale) {
         this.model = model;
@@ -63,42 +75,88 @@ public class Entity {
         this.rotY += dy;
         this.rotZ += dz;
     }
-
-    public void gravity() {
-        gravity(0);
-    }
     
     public void move(){
         checkInputs();
         increaseRotation(0, currentTurnSpeed * DisplayManager.getFramTimeSeconds(), 0);
         float distance = currentSpeed * DisplayManager.getFramTimeSeconds();
+        float straffDist = straffSpeed * DisplayManager.getFramTimeSeconds();
         float dx = (float) (distance * Math.sin(Math.toRadians(getRotY())));
         float dz = (float) (distance * Math.cos(Math.toRadians(getRotY())));
+        float sx = (float) (straffDist * Math.sin(Math.toRadians(getRotY() + 90)));
+        float sz = (float) (straffDist * Math.cos(Math.toRadians(getRotY() + 90)));
         increasePosition(dx, 0, dz);
+        increasePosition(sx, 0, sz);
     }
 
-    public void gravity(int additionalForce) {
-        if(additionalForce > 0){
-            additionalForce *= -1;
+    public void gravity() {
+        if (getPosition().y < TERRAIN_HEIGHT - 1) {
+            yForce += (GRAVITY) * DisplayManager.getFramTimeSeconds();
+            doubleYForce += (GRAVITY) * DisplayManager.getFramTimeSeconds();
+//            getPosition().y = TERRAIN_HEIGHT;
+        }else if(getPosition().y > TERRAIN_HEIGHT + 1) {
+            yForce -= (GRAVITY) * DisplayManager.getFramTimeSeconds();
+            doubleYForce -= (GRAVITY) * DisplayManager.getFramTimeSeconds();
+        }else if(getPosition().y < TERRAIN_HEIGHT + 1 && getPosition().y > TERRAIN_HEIGHT - 1 && !Keyboard.isKeyDown(Keyboard.KEY_SPACE)) {
+            yForce *= 0.9;
+            doubleYForce *= 0.9;
+//            getPosition().y = TERRAIN_HEIGHT;
         }
-        upForce += (GRAVITY + additionalForce) * DisplayManager.getFramTimeSeconds();
-        doubleUpForce += (GRAVITY + additionalForce) * DisplayManager.getFramTimeSeconds();
-        increasePosition(0, upForce * DisplayManager.getFramTimeSeconds(), 0);
-        increasePosition(0, doubleUpForce * DisplayManager.getFramTimeSeconds(), 0);
-        if (getPosition().y < TERRAIN_HEIGHT) {
-            upForce = 0;
-            doubleUpForce = 0;
-            getPosition().y = TERRAIN_HEIGHT;
-        }
+//        if (getPosition().x < -1500) {
+//            xForce += (GRAVITY) * DisplayManager.getFramTimeSeconds();
+//            doubleXForce += (GRAVITY) * DisplayManager.getFramTimeSeconds();
+//        } else if (getPosition().x > -1500) {
+//            xForce -= (GRAVITY) * DisplayManager.getFramTimeSeconds();
+//            doubleXForce -= (GRAVITY) * DisplayManager.getFramTimeSeconds();
+//        }else if(getPosition().x == -TERRAIN_HEIGHT && !Keyboard.isKeyDown(Keyboard.KEY_SPACE)) {
+            xForce = 0;
+            doubleXForce = 0;
+//            getPosition().x = -TERRAIN_HEIGHT;
+//        }
+//        if (getPosition().z < -1500) {
+//            zForce += (GRAVITY) * DisplayManager.getFramTimeSeconds();
+//            doubleZForce += (GRAVITY) * DisplayManager.getFramTimeSeconds();
+//        } else if (getPosition().z > -1500) {
+//            zForce -= (GRAVITY) * DisplayManager.getFramTimeSeconds();
+//            doubleZForce -= (GRAVITY) * DisplayManager.getFramTimeSeconds();
+//        }else if(getPosition().z == -TERRAIN_HEIGHT && !Keyboard.isKeyDown(Keyboard.KEY_SPACE)) {
+            zForce = 0;
+            doubleZForce = 0;
+//            getPosition().z = -TERRAIN_HEIGHT;
+//        }
+        increasePosition(xForce * DisplayManager.getFramTimeSeconds(), (yForce * 2) * DisplayManager.getFramTimeSeconds(), zForce * DisplayManager.getFramTimeSeconds());
+        increasePosition(doubleXForce * DisplayManager.getFramTimeSeconds(), doubleYForce * DisplayManager.getFramTimeSeconds(), doubleZForce * DisplayManager.getFramTimeSeconds());
+    }
+    
+    private void collisionDetection(){
+        float box1X = this.position.x + 10;
+        float box1Y = this.position.y + 10;
+        float box2X = this.position.x - 10;
+        float box2Y = this.position.y - 10;
+    }
+    
+    private void collisionMove(){
+        float dx = 0;
+        float dy = 0;
+        float dz = 0;
+        increasePosition(dx, dy, dz);
     }
     
     private void checkInputs(){
         if(Keyboard.isKeyDown(Keyboard.KEY_W) || Mouse.isButtonDown(0) && Mouse.isButtonDown(1)){
             this.currentSpeed = RUN_SPEED;
         }else if(Keyboard.isKeyDown(Keyboard.KEY_S)){
-            this.currentSpeed = -RUN_SPEED;
+            this.currentSpeed = -RUN_SPEED + 20;
         }else{
             this.currentSpeed = 0;
+        }
+        
+        if(Keyboard.isKeyDown(Keyboard.KEY_Q) || Keyboard.isKeyDown(Keyboard.KEY_A) && Mouse.isButtonDown(1)){
+            this.straffSpeed = STRAFF_SPEED;
+        }else if(Keyboard.isKeyDown(Keyboard.KEY_E) || Keyboard.isKeyDown(Keyboard.KEY_D) && Mouse.isButtonDown(1)){
+            this.straffSpeed = -STRAFF_SPEED;
+        }else{
+            this.straffSpeed = 0;
         }
         
         if(Mouse.isButtonDown(1) || Mouse.isButtonDown(1) && Mouse.isButtonDown(0)){
@@ -118,7 +176,7 @@ public class Entity {
     }
     
     private void jump(){
-        this.upForce = JUMP_POWER;
+        this.yForce = JUMP_POWER;
     }
 
     public TexturedModel getModel() {
