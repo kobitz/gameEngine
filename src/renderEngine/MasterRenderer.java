@@ -39,6 +39,7 @@ public class MasterRenderer {
         enableCulling();
         creatProjectionMatrix();
         renderer = new EntityRenderer(shader, projectionMatrix);
+//        GL11.glShadeModel(GL11.GL_FLAT);
     }
     
     public static void enableCulling(){
